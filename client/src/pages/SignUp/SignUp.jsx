@@ -1,7 +1,39 @@
 import { Link } from 'react-router-dom'
 import { FcGoogle } from 'react-icons/fc'
+import imgUplod from '../../api/ultils'
+import useAuth from '../../hooks/useAuth'
+import { saveUser } from '../../api/auth'
 
 const SignUp = () => {
+  const { createUser, updateUserProfile, signInWithGoogle } = useAuth()
+  const handelSubmit = async e => {
+    e.preventDefault();
+    const form = e.target;
+    const name = form.name.value;
+    const email = form.email.value;
+    const password = form.password.value;
+    const image = form.image.files[0];
+    //console.log(name, email, password);
+    //console.log(imageData);
+    try {
+      //1. uplod image
+      const imageData = await imgUplod(image);
+      //2. user Ragester
+      const result = await createUser(email, password);
+      console.log(result);
+      //3. save user name $ photo
+      await updateUserProfile(name, imageData?.data?.display_url)
+
+      //4. save user data in the databes 
+      const dbRespons = await saveUser(result?.user)
+      console.log(dbRespons);
+      //5. get token
+
+    } catch (error) {
+      console.log(error);
+    }
+
+  }
   return (
     <div className='flex justify-center items-center min-h-screen'>
       <div className='flex flex-col max-w-md p-6 rounded-md sm:p-10 bg-gray-100 text-gray-900'>
@@ -10,6 +42,7 @@ const SignUp = () => {
           <p className='text-sm text-gray-400'>Welcome to StayVista</p>
         </div>
         <form
+          onSubmit={handelSubmit}
           noValidate=''
           action=''
           className='space-y-6 ng-untouched ng-pristine ng-valid'
