@@ -5,6 +5,8 @@ import ErrorPage from '../pages/ErrorPage'
 import Login from '../pages/Login/Login'
 import SignUp from '../pages/SignUp/SignUp'
 import RoomDetail from '../pages/RoomDetails/RoomDetail'
+import PrivetRoutes from './PrivetRoutes'
+import {  getRoom } from '../api/rooms'
 
 export const router = createBrowserRouter([
   {
@@ -15,10 +17,14 @@ export const router = createBrowserRouter([
       {
         path: '/',
         element: <Home />,
+
       },
       {
-        path:'/room/:id',
-        element: <RoomDetail/>
+        path: '/room/:id',
+        element: <PrivetRoutes>
+          <RoomDetail />
+        </PrivetRoutes>,
+        loader: ({params})=> getRoom(params.id)
       }
     ],
   },

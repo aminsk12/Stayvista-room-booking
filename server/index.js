@@ -3,7 +3,7 @@ const app = express()
 require('dotenv').config()
 const cors = require('cors')
 const cookieParser = require('cookie-parser')
-const { MongoClient, ServerApiVersion } = require('mongodb')
+const { MongoClient, ServerApiVersion, ObjectId } = require('mongodb')
 const jwt = require('jsonwebtoken')
 const morgan = require('morgan')
 const port = process.env.PORT || 5000
@@ -44,6 +44,23 @@ const client = new MongoClient(process.env.DB_URI, {
 async function run() {
   try {
     const usersCollection = client.db('stayvistaDb').collection('users')
+    const roomsCollection = client.db('stayvistaDb').collection('rooms')
+
+    //get all rooms
+    app.get('/rooms', async (req, res) => {
+      const result = await roomsCollection.find().toArray()
+      
+      res.send(result)
+    })
+    //get single room
+    app.get('/room/:id', async (req, res) => {
+      const id = req.params.id
+      const result = await roomsCollection.findOne({_id: new ObjectId(id)})
+      res.send(result)
+    })
+
+
+
     // auth related api
     app.post('/jwt', async (req, res) => {
       const user = req.body
@@ -80,7 +97,7 @@ async function run() {
     app.put('/users/:email', async (req, res) => {
       const email = req.params.email
       const user = req.body
-      console.log('user' , user);
+      console.log('user', user);
       const query = { email: email }
       const options = { upsert: true }
       const isExist = await usersCollection.findOne(query)

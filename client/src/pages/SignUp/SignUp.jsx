@@ -55,7 +55,7 @@ const handeSignInWithGoogle = async() => {
       console.log(dbRespons);
       //5. get token
       navigate('/')
-      toast.success('singup success')
+      toast.success('Login success')
     } catch (error) {
       console.log(error);
       toast.error(error.message)

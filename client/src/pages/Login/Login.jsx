@@ -3,40 +3,27 @@ import { FcGoogle } from 'react-icons/fc'
 import useAuth from '../../hooks/useAuth'
 import { saveUser } from '../../api/auth'
 import toast from 'react-hot-toast'
+import { TbFidgetSpinner } from 'react-icons/tb'
 
 const Login = () => {
-  const { createUser, updateUserProfile, signInWithGoogle, loading } = useAuth()
+  const { signIn, signInWithGoogle, loading } = useAuth()
   const navigate = useNavigate()
-  {/*const handelSubmit = async e => {
+
+  const handelSubmit = async e => {
     e.preventDefault();
     const form = e.target;
-    const name = form.name.value;
     const email = form.email.value;
     const password = form.password.value;
-    const image = form.image.files[0];
-    //console.log(name, email, password);
-    //console.log(imageData);
-    try {
-      //1. uplod image
-      const imageData = await imgUplod(image);
-      //2. user Ragester
-      const result = await createUser(email, password);
-      console.log(result);
-      //3. save user name $ photo
-      await updateUserProfile(name, imageData?.data?.display_url)
 
-      //4. save user data in the databes 
-      const dbRespons = await saveUser(result?.user)
-      console.log(dbRespons);
-      //5. get token
-      navigate('/')
-      toast.success('singup success')
-    } catch (error) {
-      console.log(error);
-      toast.error(error.message)
-    }
 
-  }*/}
+
+    await signIn(email, password);
+    //5. get token
+    navigate('/')
+    toast.success('Login success')
+
+
+  }
 
   const handeSignInWithGoogle = async () => {
 
@@ -53,7 +40,7 @@ const Login = () => {
       console.log(dbRespons);
       //5. get token
       navigate('/')
-      toast.success('singup success')
+      toast.success('Loging success')
     } catch (error) {
       console.log(error);
       toast.error(error.message)
@@ -70,6 +57,7 @@ const Login = () => {
           </p>
         </div>
         <form
+          onSubmit={handelSubmit}
           noValidate=''
           action=''
           className='space-y-6 ng-untouched ng-pristine ng-valid'
@@ -112,7 +100,7 @@ const Login = () => {
               type='submit'
               className='bg-rose-500 w-full rounded-md py-3 text-white'
             >
-              Continue
+              {loading ? <TbFidgetSpinner className='animate-spin mx-auto' /> : 'Continue'}
             </button>
           </div>
         </form>
@@ -135,7 +123,7 @@ const Login = () => {
           <p>Continue with Google</p>
         </div>
         <p className='px-6 text-sm text-center text-gray-400'>
-          Don&apos;t have an account yet?{' '}
+          Don&apos;t have an account yet?{'  '}
           <Link
             to='/signup'
             className='hover:underline hover:text-rose-500 text-gray-600'

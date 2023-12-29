@@ -4,11 +4,11 @@ const DatePicker = () => {
   return (
     <DateRange
       rangeColors={['#F43F5E']}
-   
-      
+   //   ranges={[value]}
+
       direction='vertical'
       showDateDisplay={false}
-      
+
     />
   )
 }

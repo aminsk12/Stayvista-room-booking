@@ -1,17 +1,30 @@
 /* eslint-disable react/prop-types */
 //import { formatDistance } from "date-fns";
+import { useState } from "react";
 import Button from "../Button/Button";
 import DatePicker from "./DatePicker";
+import { formatDistance } from "date-fns";
 
 
 const RoomReservation = ({ room }) => {
-    const date1 = new Date(room?.from);
-    const date2 = new Date(room?.to);
 
+    const [value, setValue] = useState({
+        startDate: new Date(room?.from),
+        endDate: new Date(room?.to),
+        key: 'selection'
+    })
 
-    const totalDays = parseInt(date2.getDate() - date1.getDate())
+    const totalDays = parseInt(
+        formatDistance(new Date(room?.to), new Date(room?.from)).split(' ')[0]
+    )
     console.log(totalDays);
     const totalPrise = totalDays * room?.price
+
+    {/* const date1 = new Date(room?.from);
+    const date2 = new Date(room?.to);
+    const totalDays = parseInt(date2.getDate() - date1.getDate())
+    console.log(totalDays);
+const totalPrise = totalDays * room?.price*/}
 
     return (
         <div className="rounded-xl border-[1px] items-center p-4 border-neutral-400 overflow-hidden bg-white">
