@@ -7,6 +7,7 @@ import SignUp from '../pages/SignUp/SignUp'
 import RoomDetail from '../pages/RoomDetails/RoomDetail'
 import PrivetRoutes from './PrivetRoutes'
 import {  getRoom } from '../api/rooms'
+import Dasboard from '../layouts/Dasboard/Dasboard'
 
 export const router = createBrowserRouter([
   {
@@ -30,4 +31,11 @@ export const router = createBrowserRouter([
   },
   { path: '/login', element: <Login /> },
   { path: '/signup', element: <SignUp /> },
+  {
+    path:'/dasboard',
+    element: <Dasboard/>,
+    children: [{
+      
+    }]
+  }
 ])

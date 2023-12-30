@@ -8,7 +8,7 @@ import { formatDistance } from "date-fns";
 
 const RoomReservation = ({ room }) => {
 
-    const [value, setValue] = useState({
+    const [value] = useState({
         startDate: new Date(room?.from),
         endDate: new Date(room?.to),
         key: 'selection'
@@ -24,7 +24,7 @@ const RoomReservation = ({ room }) => {
     const date2 = new Date(room?.to);
     const totalDays = parseInt(date2.getDate() - date1.getDate())
     console.log(totalDays);
-const totalPrise = totalDays * room?.price*/}
+    const totalPrise = totalDays * room?.price*/}
 
     return (
         <div className="rounded-xl border-[1px] items-center p-4 border-neutral-400 overflow-hidden bg-white">
@@ -34,7 +34,7 @@ const totalPrise = totalDays * room?.price*/}
             </div>
             <hr />
             <div className="flex justify-center">
-                <DatePicker />
+                <DatePicker value={value} />
             </div>
             <hr />
             <div className="p-4">
