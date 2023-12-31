@@ -10,7 +10,7 @@ const port = process.env.PORT || 5000
 
 // middleware
 const corsOptions = {
-  origin: ['http://localhost:5173', 'http://localhost:5174'],
+  origin: ['http://localhost:5173', 'http://localhost:5174','https://calm-kitten-148ad3.netlify.app'],
   credentials: true,
   optionSuccessStatus: 200,
 }
@@ -58,6 +58,13 @@ async function run() {
       const id = req.params.id
       const result = await roomsCollection.findOne({_id: new ObjectId(id)})
       res.send(result)
+    })
+    //save room in the databaese
+    app.post('/rooms', async(req,res)=>{
+      const room = req.body
+      const result = await roomsCollection.insertOne(room)
+      res.send(result)
+
     })
 
 

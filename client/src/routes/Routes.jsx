@@ -6,8 +6,11 @@ import Login from '../pages/Login/Login'
 import SignUp from '../pages/SignUp/SignUp'
 import RoomDetail from '../pages/RoomDetails/RoomDetail'
 import PrivetRoutes from './PrivetRoutes'
-import {  getRoom } from '../api/rooms'
+import { getRoom } from '../api/rooms'
 import Dasboard from '../layouts/Dasboard/Dasboard'
+import AddRoom from '../pages/Dashboard/Host/AddRoom'
+import MyListing from '../pages/Dashboard/Host/MyListing'
+
 
 export const router = createBrowserRouter([
   {
@@ -25,17 +28,30 @@ export const router = createBrowserRouter([
         element: <PrivetRoutes>
           <RoomDetail />
         </PrivetRoutes>,
-        loader: ({params})=> getRoom(params.id)
+        loader: ({ params }) => getRoom(params.id)
       }
     ],
   },
-  { path: '/login', element: <Login /> },
-  { path: '/signup', element: <SignUp /> },
   {
-    path:'/dasboard',
-    element: <Dasboard/>,
-    children: [{
-      
-    }]
+    path: '/login',
+    element: <Login />
+  },
+  {
+    path: '/signup',
+    element: <SignUp />
+  },
+  {
+    path: '/dasboard',
+    element: <Dasboard />,
+    children: [
+      {
+        path: 'addRoom',
+        element: <AddRoom />,
+      },
+      {
+        path: 'myList',
+        element: <MyListing />,
+      }
+    ]
   }
 ])

@@ -18,7 +18,7 @@ const RoomReservation = ({ room }) => {
         formatDistance(new Date(room?.to), new Date(room?.from)).split(' ')[0]
     )
     console.log(totalDays);
-    const totalPrise = totalDays * room?.price
+    const totalPrise = totalDays * parseFloat(room.price)
 
     {/* const date1 = new Date(room?.from);
     const date2 = new Date(room?.to);
